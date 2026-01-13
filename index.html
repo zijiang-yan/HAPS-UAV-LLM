@@ -6,7 +6,7 @@
   
   <!-- Primary Meta Tags -->
   <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
+  <meta name="title" content="HAPS-UAV-LLM - Z.Yan et al. | Academic Research">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
   <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
@@ -100,6 +100,88 @@
   
   <!-- Fonts - Optimized loading -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- HAPS-UAV Simulation Styles -->
+  <style>
+    .simulation-section {
+      background-color: #f4f4f9;
+      padding: 60px 20px;
+    }
+    .simulation-container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .sim-title {
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .sim-controls {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .sim-control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 200px;
+    }
+    .sim-control-group label {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .sim-control-group input[type="range"] {
+      width: 100%;
+    }
+    .sim-status-group {
+      border-left: 2px solid #ddd;
+      padding-left: 25px;
+      margin-left: 10px;
+    }
+    .sim-status-group strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    #simCanvas {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .sim-legend {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .sim-dot {
+      height: 12px;
+      width: 12px;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
   
   <!-- Defer non-critical JavaScript -->
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -241,7 +323,7 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks: LLM-based Motion and Communication</h1>
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
@@ -469,6 +551,37 @@
 <!--End paper poster -->
 
 
+<!-- HAPS-UAV Simulation -->
+<section class="simulation-section">
+  <div class="simulation-container">
+    <h2 class="sim-title">Hierarchical HAPS-UAV Control Simulation</h2>
+
+    <div class="sim-controls">
+      <div class="sim-control-group">
+        <label for="trafficSlider">Traffic Density (UAVs): <span id="trafficVal">8</span></label>
+        <input type="range" id="trafficSlider" min="3" max="20" value="8">
+      </div>
+      <div class="sim-control-group">
+        <label for="capacitySlider">HAPS Capacity Limit: <span id="capVal">5</span></label>
+        <input type="range" id="capacitySlider" min="1" max="15" value="5">
+      </div>
+      <div class="sim-control-group sim-status-group">
+        <strong>Meta-Controller Status:</strong>
+        <div id="statusText" style="color: #27ae60; font-weight: bold;">Optimal</div>
+      </div>
+    </div>
+
+    <canvas id="simCanvas" width="800" height="500"></canvas>
+
+    <div class="sim-legend">
+      <span><span class="sim-dot" style="background:#2ecc71;"></span>HAPS Connection (Tier 1)</span>
+      <span><span class="sim-dot" style="background:#e67e22;"></span>GBS Offload (Tier 2)</span>
+      <span><span class="sim-dot" style="background:#3498db;"></span>UAV</span>
+    </div>
+  </div>
+</section>
+<!--End HAPS-UAV Simulation -->
+
 
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
@@ -515,6 +628,242 @@
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
 
     <!-- End of Statcounter Code -->
+
+<script>
+/**
+ * SIMULATION CONFIGURATION
+ */
+const canvas = document.getElementById('simCanvas');
+const ctx = canvas.getContext('2d');
+const trafficSlider = document.getElementById('trafficSlider');
+const capacitySlider = document.getElementById('capacitySlider');
+const trafficVal = document.getElementById('trafficVal');
+const capVal = document.getElementById('capVal');
+const statusText = document.getElementById('statusText');
+
+// System Constants
+const GROUND_Y = 450;
+const HAPS_Y = 80;
+const HAPS_X = canvas.width / 2;
+const FLIGHT_Y_HIGH = 180; // Altitude when connected to HAPS
+const FLIGHT_Y_LOW = 300;  // Altitude when offloaded to GBS
+
+// State Variables
+let uavs = [];
+let hapsCapacity = 5;
+let groundBSs = [];
+
+// Initialize Ground Base Stations
+const bsCount = 3;
+for(let i=1; i<=bsCount; i++) {
+    groundBSs.push({
+        x: (canvas.width / (bsCount + 1)) * i,
+        y: GROUND_Y,
+        id: `GBS_${i}`
+    });
+}
+
+/**
+ * CLASSES
+ */
+class UAV {
+    constructor(id) {
+        this.id = id;
+        this.x = Math.random() * canvas.width;
+        this.y = FLIGHT_Y_HIGH;
+        this.targetY = FLIGHT_Y_HIGH;
+        this.speed = 0.5 + Math.random() * 1.5;
+        this.mode = 'HAPS'; // 'HAPS' or 'GBS'
+        this.assignedGBS = null;
+    }
+
+    update() {
+        // Horizontal Motion
+        this.x += this.speed;
+        if (this.x > canvas.width + 20) this.x = -20;
+
+        // Vertical Motion (smooth transition)
+        // If mode is GBS, fly lower. If HAPS, fly higher.
+        this.targetY = (this.mode === 'HAPS') ? FLIGHT_Y_HIGH : FLIGHT_Y_LOW;
+        this.y += (this.targetY - this.y) * 0.05;
+    }
+
+    draw() {
+        // Draw Link
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        if (this.mode === 'HAPS') {
+            ctx.strokeStyle = 'rgba(46, 204, 113, 0.4)'; // Green
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(HAPS_X, HAPS_Y);
+        } else if (this.assignedGBS) {
+            ctx.strokeStyle = 'rgba(230, 126, 34, 0.4)'; // Orange
+            ctx.moveTo(this.x, this.y);
+            ctx.lineTo(this.assignedGBS.x, this.assignedGBS.y);
+        }
+        ctx.stroke();
+
+        // Draw UAV Body
+        ctx.fillStyle = '#3498db';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw Label
+        ctx.fillStyle = '#333';
+        ctx.font = '10px Arial';
+        ctx.fillText(`UAV ${this.id}`, this.x - 15, this.y - 10);
+    }
+}
+
+/**
+ * HIERARCHICAL CONTROL LOGIC (The "Meta-Controller")
+ */
+function runMetaController() {
+    // 1. Identify current load
+    // Simple heuristic: Distance from HAPS. 
+    // In real paper: Spectral efficiency or QoS priority.
+    
+    // Sort UAVs by distance from HAPS (furthest are first candidates to offload)
+    let sortedUAVs = [...uavs].sort((a, b) => {
+        let distA = Math.abs(a.x - HAPS_X);
+        let distB = Math.abs(b.x - HAPS_X);
+        return distB - distA; // Descending order (Furthest first)
+    });
+
+    let activeHapsConnections = 0;
+    
+    // 2. Assign States
+    // We want the 'closest' N UAVs to have HAPS, where N = Capacity.
+    // However, to avoid flickering, we re-evaluate based on the sorted list.
+    
+    // Reset all to HAPS first logically, then apply constraints
+    // (In a real system, we wouldn't reset every frame, but this visualizes the priority)
+    
+    // Calculate who *should* be on HAPS (The closest 'capacity' number of UAVs)
+    // Actually, let's look at the list:
+    // The LAST 'capacity' elements of sortedUAVs are the CLOSEST ones.
+    
+    let uavsAllowedOnHaps = sortedUAVs.slice(Math.max(sortedUAVs.length - hapsCapacity, 0));
+    let uavsToOffload = sortedUAVs.slice(0, Math.max(sortedUAVs.length - hapsCapacity, 0));
+
+    // Update Modes
+    uavsAllowedOnHaps.forEach(u => {
+        u.mode = 'HAPS';
+        u.assignedGBS = null;
+    });
+
+    uavsToOffload.forEach(u => {
+        u.mode = 'GBS';
+        // Find nearest GBS
+        let nearest = groundBSs.reduce((prev, curr) => {
+            return (Math.abs(curr.x - u.x) < Math.abs(prev.x - u.x) ? curr : prev);
+        });
+        u.assignedGBS = nearest;
+    });
+
+    // Update Status Text
+    if (uavs.length > hapsCapacity) {
+        statusText.innerText = `Overload! Offloading ${uavs.length - hapsCapacity} UAVs`;
+        statusText.style.color = '#e74c3c'; // Red
+    } else {
+        statusText.innerText = 'Optimal (All on HAPS)';
+        statusText.style.color = '#27ae60'; // Green
+    }
+}
+
+/**
+ * MAIN LOOP
+ */
+function init() {
+    // Initial Spawn
+    updateUAVCount(parseInt(trafficSlider.value));
+    animate();
+}
+
+function updateUAVCount(count) {
+    // Adjust array size
+    if (count > uavs.length) {
+        for (let i = uavs.length; i < count; i++) {
+            uavs.push(new UAV(i + 1));
+        }
+    } else {
+        uavs = uavs.slice(0, count);
+    }
+}
+
+function drawStaticElements() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw Ground
+    ctx.fillStyle = '#ecf0f1';
+    ctx.fillRect(0, GROUND_Y, canvas.width, canvas.height - GROUND_Y);
+
+    // Draw HAPS
+    ctx.fillStyle = '#2980b9';
+    ctx.beginPath();
+    ctx.ellipse(HAPS_X, HAPS_Y, 40, 20, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'white';
+    ctx.fillText("HAPS", HAPS_X - 15, HAPS_Y + 4);
+    
+    // Draw HAPS Capacity Bar
+    ctx.fillStyle = '#bdc3c7';
+    ctx.fillRect(HAPS_X - 30, HAPS_Y - 35, 60, 5);
+    // Fill based on load
+    let load = uavs.filter(u => u.mode === 'HAPS').length;
+    let pct = Math.min(load / hapsCapacity, 1);
+    ctx.fillStyle = (load > hapsCapacity) ? '#e74c3c' : '#2ecc71';
+    ctx.fillRect(HAPS_X - 30, HAPS_Y - 35, 60 * pct, 5);
+
+
+    // Draw Ground BS
+    groundBSs.forEach(bs => {
+        ctx.fillStyle = '#7f8c8d';
+        ctx.beginPath();
+        ctx.moveTo(bs.x, bs.y);
+        ctx.lineTo(bs.x - 15, bs.y + 30);
+        ctx.lineTo(bs.x + 15, bs.y + 30);
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.fillText("BS", bs.x - 6, bs.y + 25);
+    });
+}
+
+function animate() {
+    drawStaticElements();
+
+    // 1. Run Logic
+    runMetaController();
+
+    // 2. Update & Draw UAVs
+    uavs.forEach(u => {
+        u.update();
+        u.draw();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+/**
+ * EVENT LISTENERS
+ */
+trafficSlider.addEventListener('input', (e) => {
+    let val = parseInt(e.target.value);
+    trafficVal.innerText = val;
+    updateUAVCount(val);
+});
+
+capacitySlider.addEventListener('input', (e) => {
+    let val = parseInt(e.target.value);
+    capVal.innerText = val;
+    hapsCapacity = val;
+});
+
+// Start
+init();
+
+</script>
 
   </body>
   </html>
