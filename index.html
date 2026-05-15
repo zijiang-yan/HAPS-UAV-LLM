@@ -6,13 +6,13 @@
   
   <!-- Primary Meta Tags -->
   <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks - Yan et al. | Academic Research">
+  <meta name="title" content="Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks - Yan et al. | Academic Research">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
   <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
   <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
   <!-- TODO: List all authors -->
-  <meta name="author" content="Zijiang Yan, Hao Zhou, Wael Jaafar, Yixiang Huang, Jianhua Pei, Hina Tabassum, Ping Wang">
+  <meta name="author" content="Zijiang Yan, Hao Zhou, Wael Jaafar, Jianhua Pei, Ping Wang, Halim Yanikomeroglu, Hina Tabassum">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
   
@@ -21,7 +21,7 @@
   <!-- TODO: Replace with your institution or lab name -->
   <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
   <!-- TODO: Same as paper title above -->
-  <meta property="og:title" content="Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks">
+  <meta property="og:title" content="Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks">
   <!-- TODO: Same as description above -->
   <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Replace with your actual website URL -->
@@ -44,7 +44,7 @@
   <!-- TODO: Replace with first author's Twitter handle -->
   <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
   <!-- TODO: Same as paper title above -->
-  <meta name="twitter:title" content="Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks">
+  <meta name="twitter:title" content="Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks">
   <!-- TODO: Same as description above -->
   <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Same as social preview image above -->
@@ -52,17 +52,17 @@
   <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
 
   <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks: LLM-based Motion and Communication">
+  <meta name="citation_title" content="Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks: Joint Optimization of Flight and Connectivity">
   <meta name="citation_author" content="Yan, Zijiang">
   <meta name="citation_author" content="Zhou, Hao">
   <meta name="citation_author" content="Jaafar, Wael">
-  <meta name="citation_author" content="Huang, Yixiang">
   <meta name="citation_author" content="Pei, Jianhua">
-  <meta name="citation_author" content="Tabassum, Hina">
   <meta name="citation_author" content="Wang, Ping">
-  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_author" content="Yanikomeroglu, Halim">
+  <meta name="citation_author" content="Tabassum, Hina">
+  <meta name="citation_publication_date" content="2026-05-12">
   <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.11509">
   
   <!-- Additional SEO -->
   <meta name="theme-color" content="#2563eb">
@@ -217,36 +217,52 @@
         "name": "Hao Zhou",
         "affiliation": {
           "@type": "Organization",
-          "name": "McGill University"
+          "name": "Samsung Research America"
         }
       },
       {
         "@type": "Person",
         "name": "Wael Jaafar"
+        "affiliation": {
+          "@type": "Organization",
+          "name": "ETS, University of Quebec"
+        }
       },
-      {
+      <!-- {
         "@type": "Person",
         "name": "Yixiang Huang"
-      },
+      }, -->
       {
         "@type": "Person",
         "name": "Jianhua Pei",
         "affiliation": {
           "@type": "Organization",
-          "name": "Huazhong University of Science and Technology"
+          "name": "York University"
+        }
+      },
+x       {
+        "@type": "Person",
+        "name": "Halim Yanikomeroglu",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Carleton University"
         }
       },
       {
+        "@type": "Person",
+        "name": "Ping Wang",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "York University"
+        }
+      },
+          {
         "@type": "Person",
         "name": "Hina Tabassum",
         "affiliation": {
           "@type": "Organization",
           "name": "York University"
         }
-      },
-      {
-        "@type": "Person",
-        "name": "Ping Wang"
       }
     ],
     "datePublished": "2024-01-01",
@@ -257,7 +273,7 @@
     "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
     "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
     "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
+    "abstract": "Uncrewed aerial vehicles (UAVs) are increasingly deployed in complex networked environments, yet the joint optimization of multi-UAV motion control and connectivity remains a fundamental challenge. We study a multi-UAV system operating in an integrated terrestrial and non-terrestrial network (ITNTN) comprising terrestrial base stations and high-altitude platform stations (HAPS). We consider a three-dimensional aerial highway scenario where UAVs must adapt their motion to ensure collision avoidance, efficient traffic flow, and reliable communication under dynamic and partially observable conditions. We model the problem as a hierarchical multi-objective partially observable Markov decision process (H-MO-POMDP) and propose an LLM-driven hierarchical multi-rate control framework: a HAPS-level LLM for long-term planning and handover/load balancing, and local controllers combining slow-timescale LLM reasoning with faster RL-based UAV control. We develop a high-fidelity 3D simulation integrating gym-pybullet-drones with 3GPP RF/THz channel models; results show notable gains in transportation efficiency, throughput, and collision reduction compared to baselines.",
     "citation": "BIBTEX_CITATION_HERE",
     "isAccessibleForFree": true,
     "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -355,44 +371,50 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Generative AI-Driven Hierarchical Control for Low-Altitude UAV Networks: LLM-based Motion and Communication</h1>
+            <h1 class="title is-1 publication-title">Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks: Joint Optimization of Flight and Connectivity</h1>
             <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
-              <span class="author-block">
-                <a href="https://zijiang-yan.github.io" target="_blank">Zijiang Yan</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="https://haozhou1995.github.io/" target="_blank">Hao Zhou</a><sup>2</sup><sup>5</sup>,</span>
-              <span class="author-block">
-                <a href="https://sites.google.com/view/waeljaafarphd/home" target="_blank">Wael Jaafar</a><sup>3</sup>,</span>
-              <span class="author-block">
-                <a href="mailto:yxhuang@mail.mcgill.ca" target="_blank">Yixiang Huang</a><sup>4</sup>,</span>
-              <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=d39zNWQAAAAJ&hl=zh-CN" target="_blank">Jianhua Pei</a><sup>4</sup>,</span>
-              <span class="author-block">
-                <a href="https://sites.google.com/view/ngwn-research-lab/home" target="_blank">Hina Tabassum</a><sup>1</sup>,</span>
-              <span class="author-block">
-                <a href="https://www.eecs.yorku.ca/~pingw/" target="_blank">Ping Wang</a><sup>1</sup></span>
-                  </div>
+              <span class="author-block"><a href="https://zijiang-yan.github.io" target="_blank">Zijiang Yan</a><sup>1</sup></span>,
+              <span class="author-block"><a href="https://haozhou1995.github.io/" target="_blank">Hao Zhou</a><sup>2</sup></span>,
+              <span class="author-block"><a href="https://sites.google.com/view/waeljaafarphd/home" target="_blank">Wael Jaafar</a><sup>3</sup></span>,
+              <span class="author-block"><a href="https://scholar.google.com/citations?user=d39zNWQAAAAJ&hl=zh-CN" target="_blank">Jianhua Pei</a><sup>1</sup></span>,
+              <span class="author-block"><a href="https://www.eecs.yorku.ca/~pingw/" target="_blank">Ping Wang</a><sup>1</sup></span>,
+              <span class="author-block"><a href="https://www.sce.carleton.ca/faculty/yanikomeroglu.html" target="_blank">Halim Yanikomeroglu</a><sup>4</sup></span>,
+              <span class="author-block"><a href="https://sites.google.com/view/ngwn-research-lab/home" target="_blank">Hina Tabassum</a><sup>1</sup></span>
+            </div>
 
-                  <div class="is-size-5 publication-authors">
+            <div class="is-size-5 publication-authors">
                     <!-- TODO: Replace with your institution and conference/journal info -->
                     <span class="author-block">
                       <sup>1</sup>York University, Toronto, Canada &nbsp;
                       <sup>2</sup>Samsung Research America  &nbsp;
                       <sup>3</sup>École de technologie supérieure (ÉTS) Montréal,Canada &nbsp;
-                      <sup>4</sup>Huazhong University of Science and Technology, Wuhan, China &nbsp;
-                      <sup>5</sup>McGill University, Montréal, Canada  &nbsp;
+                      <!-- <sup>4</sup>Huazhong University of Science and Technology, Wuhan, China &nbsp; -->
+                      <sup>4</sup>Carleton University, Ottawa, ON, Canada  &nbsp;
                       <!-- <sup>6</sup>Institution TBD<br> -->
-                      Conference name and year
+                      <!-- Conference name and year -->
                     </span>
                   </div>
+
+            <!-- <div class="is-size-5 publication-authors">
+              <p>
+                Z. Yan, J. Pei, P. Wang, and H. Tabassum are with the Department of Electrical Engineering and Computer Science, York University, Toronto, ON, Canada (e-mails: <a href="mailto:zijiang@yorku.ca">zijiang</a>, <a href="mailto:pingw@yorku.ca">pingw</a>, <a href="mailto:hinat@yorku.ca">hinat</a>, <a href="mailto:jianhuapei98@gmail.com">jianhuapei98@gmail.com</a>).
+              </p>
+              <p>
+                H. Zhou is with Samsung Research America, Toronto, ON, Canada (<a href="mailto:haozhou029@gmail.com">haozhou029@gmail.com</a>).
+              </p>
+              <p>
+                W. Jaafar is with the Department of Software and IT Engineering, École de technologie supérieure (ÉTS), University of Quebec, Montreal, QC, Canada (<a href="mailto:wael.jaafar@etsmtl.ca">wael.jaafar@etsmtl.ca</a>).
+              </p>
+              <p>
+                H. Yanikomeroglu is with the Non-Terrestrial Networks (Carleton-NTN) Lab and the Department of Systems and Computer Engineering, Carleton University, Ottawa, ON, Canada (<a href="mailto:halim@sce.carleton.ca">halim@sce.carleton.ca</a>).
+              </p>
+            </div> -->
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
                          <!-- TODO: Update with your arXiv paper ID -->
                       <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        <a href="https://arxiv.org/pdf/2605.11509" target="_blank"
                         class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                           <i class="fas fa-file-pdf"></i>
@@ -402,7 +424,7 @@
                     </span>
 
                     <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
+                    <!-- <span class="link-block">
                       <a href="static/pdfs/supplementary_material.pdf" target="_blank"
                       class="external-link button is-normal is-rounded is-dark">
                       <span class="icon">
@@ -410,10 +432,10 @@
                       </span>
                       <span>Supplementary</span>
                     </a>
-                  </span>
+                  </span> -->
 
                   <!-- TODO: Replace with your GitHub repository URL -->
-                  <span class="link-block">
+                  <!-- <span class="link-block">
                     <a href="https://github.com/YOUR REPO HERE" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
@@ -421,11 +443,11 @@
                     </span>
                     <span>Code</span>
                   </a>
-                </span>
+                </span> -->
 
                 <!-- TODO: Update with your arXiv paper ID -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  <a href="https://arxiv.org/abs/2605.11509" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="ai ai-arxiv"></i>
@@ -467,9 +489,8 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
           <p>
-            Unmanned aerial vehicles (UAVs) have been widely adopted in various real-world applications. However, the control and optimization of multi-UAV systems remain a significant challenge, particularly in dynamic and constrained environments. In this context, we investigate the joint motion and communication control of multiple UAVs operating within an integrated terrestrial and non-terrestrial network (ITNTN) infrastructure that includes high-altitude platform stations (HAPS). Specifically, we consider an aerial highway scenario in which UAVs accelerate, decelerate, and change lanes to avoid collisions and maintain overall traffic flow. Different from existing studies, we propose a novel hierarchical and collaborative method based on large language models (LLMs). Specifically, an LLM deployed on the HAPS performs UAV access control, while a second LLM onboard each UAV handles motion planning and control. This LLM-based framework leverages the rich knowledge embedded in pre-trained models to enable high-level strategic planning and low-level tactical decisions, confirming its potential for the development of next-generation 3D aerial highway systems. Experimental results demonstrate that our proposed collaborative LLM-based method achieves higher system rewards, lower operational costs, and significantly reduced UAV collision rates, compared to baseline approaches.
+            Uncrewed aerial vehicles (UAVs) are increasingly deployed in complex networked environments, yet the joint optimization of multi-UAV motion control and connectivity remains a fundamental challenge. We study a multi-UAV system operating in an integrated terrestrial and non-terrestrial network (ITNTN) comprising terrestrial base stations and high-altitude platform stations (HAPS). We consider a three-dimensional aerial highway scenario where UAVs must adapt their motion to ensure collision avoidance, efficient traffic flow, and reliable communication under dynamic and partially observable conditions. We model the problem as a hierarchical multi-objective partially observable Markov decision process (H-MO-POMDP) and propose an LLM-driven hierarchical multi-rate control framework: a HAPS-level LLM for long-term planning and handover/load balancing, and local controllers combining slow-timescale LLM reasoning with faster RL-based UAV control. We develop a high-fidelity 3D simulation integrating gym-pybullet-drones with 3GPP RF/THz channel models; results show notable gains in transportation efficiency, throughput, and collision reduction compared to baselines.
           </p>
         </div>
       </div>
@@ -477,6 +498,50 @@
   </div>
 </section>
 <!-- End paper abstract -->
+
+<!-- Related arXiv Paper (Referenced) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4">Related Papers</h2>
+        <div class="content">
+          <p><strong>Hierarchical LLM-Driven Control for HAPS-Assisted UAV Networks: Joint Optimization of Flight and Connectivity.</strong><br>
+          Zijiang Yan, Hao Zhou, Wael Jaafar, Jianhua Pei, Ping Wang, Halim Yanikomeroglu, Hina Tabassum<br>
+          arXiv:2605.11509, Apr. 2026. </p>
+          <p>
+            <a class="button is-small is-link" href="https://arxiv.org/pdf/2605.11509" target="_blank"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>arXiv</span></a>
+            <!-- <a class="button is-small is-light" href="https://arxiv.org/abs/2605.11509" target="_blank" style="margin-left:8px;"><span class="icon"><i class="ai ai-arxiv"></i></span><span>Abstract / Details</span></a> -->
+          </p>
+          <hr>
+          <p><strong>Hierarchical and Collaborative LLM-Based Control for Multi-UAV Motion and Communication in Integrated Terrestrial and Non-Terrestrial Networks.</strong><br>
+          Zijiang Yan*, Hao Zhou*, Jianhua Pei, Hina Tabassum<br>
+          in ICML 2025 Workshop on Machine Learning for Wireless Communication and Networks (ML4Wireless), Jul. 2025.<br></p>
+          <p>
+            <!-- <a class="button is-small is-light" href="https://arxiv.org/abs/2506.06532" target="_blank"><span class="icon"><i class="ai ai-arxiv"></i></span><span>Abstract / Details</span></a> -->
+            <!-- <a class="button is-small is-link" href="https://arxiv.org/abs/2506.06532" target="_blank"><span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a> -->
+             <a class="button is-small is-link" href="https://arxiv.org/pdf/2506.06532" target="_blank"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>arXiv</span></a>
+
+          </p>
+          <hr>
+          <p><strong>Multi-UAV Speed Control with Collision Avoidance and Handover-Aware Cell Association - DRL with Action Branching.</strong><br>
+          Zijiang Yan, Wael Jaafar, Bassant Selim, Hina Tabassum<br>
+          in GLOBECOM 2023 - IEEE Global Communications Conference, Dec. 2023.<br></p>
+          <p>
+            <!-- <a class="button is-small is-light" href="https://arxiv.org/abs/2307.13158" target="_blank"><span class="icon"><i class="ai ai-arxiv"></i></span><span>Abstract / Details</span></a> -->
+            <!-- <a class="button is-small is-link" href="https://arxiv.org/abs/2307.13158" target="_blank"><span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a>
+              -->
+            <a class="button is-small is-link" href="https://arxiv.org/pdf/2307.13158" target="_blank"><span class="icon"><i class="fas fa-file-pdf"></i></span><span>arXiv</span></a>
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End related arXiv paper -->
+
+
 
 
 <!-- Image carousel -->
@@ -486,36 +551,39 @@
       <div id="results-carousel" class="carousel results-carousel">
 
         <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/uav-haps-system-model.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          UAV HAPS System Model
-        </h2>
-      </div>
+          <img src="static/images/Gemini_haps-prompt.png" alt="Gemini HAPS Prompt" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">Gemini HAPS Prompt</h2>
+        </div>
 
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/haps-uav-framework2.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          LLM based HAPS-UAV Hierarchical learning Control Framework
-        </h2>
-      </div>
+        <div class="item">
+          <img src="static/images/Gemini_uav_llm_illustration.png" alt="Gemini UAV LLM Illustration" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">Gemini UAV LLM Illustration</h2>
+        </div>
 
-      <!-- <div class="item">
-        Your image here
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      Your image here
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div> -->
+        <div class="item">
+          <img src="static/images/simulate-js5.png" alt="Simulation JS5" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">Simulation JS5</h2>
+        </div>
+
+        <div class="item">
+          <img src="static/images/uav-agent-2d-llm3.png" alt="UAV Agent 2D LLM" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">UAV Agent 2D LLM</h2>
+        </div>
+
+        <!-- <div class="item">
+          <img src="static/images/uav-haps-system-model.jpg" alt="UAV HAPS System Model" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">UAV HAPS System Model</h2>
+        </div> -->
+
+        <div class="item">
+          <img src="static/images/uav-haps-tbs2.png" alt="UAV HAPS TBS" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">UAV HAPS TBS</h2>
+        </div>
+
+        <div class="item">
+          <img src="static/images/uav6g_results_20260424_161106_page-0001.jpg" alt="UAV 6G Results" loading="lazy"/>
+          <h2 class="subtitle has-text-centered">UAV 6G Results</h2>
+        </div>
   </div>
 </div>
 </div>

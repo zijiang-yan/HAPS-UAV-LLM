@@ -1,0 +1,32 @@
+# Ignore LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.synctex.gz
+*.gz
+
+# Ignore temporary and OS files
+*.DS_Store
+Thumbs.db
+~$*
+
+# Ignore compiled PDFs from LaTeX build (uncomment if you want to keep PDFs locally)
+#*.pdf
+
+# Ignore arXiv source project directory to avoid uploading source
+arXiv-2605.11509v1/
+
+# Optional: ignore other large generated folders
+build/
+dist/
+__pycache__/
+
+# Node/npm
+node_modules/
